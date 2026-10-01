@@ -17,6 +17,7 @@ import { Product, ProductReview } from '../../types';
 import { useStore } from '../../context/StoreContext';
 import { ProductCard } from '../products/ProductCard';
 import { SizeGuideModal } from '../common/SizeGuideModal';
+import { formatPKR } from '../../lib/formatters';
 
 interface ProductDetailsPageProps {
   product: Product;
@@ -205,18 +206,18 @@ export const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({
               {product.salePrice ? (
                 <>
                   <span className="text-3xl font-black text-[#173627]">
-                    {settings.currencySymbol || '$'}{product.salePrice.toFixed(2)}
+                    {formatPKR(product.salePrice, settings.currencySymbol || 'Rs.')}
                   </span>
                   <span className="text-lg text-stone-400 line-through font-semibold">
-                    {settings.currencySymbol || '$'}{product.price.toFixed(2)}
+                    {formatPKR(product.price, settings.currencySymbol || 'Rs.')}
                   </span>
                   <span className="px-2 py-0.5 rounded-md bg-rose-100 text-rose-800 text-xs font-bold">
-                    Save {settings.currencySymbol || '$'}{(product.price - product.salePrice).toFixed(2)}
+                    Save {formatPKR(product.price - product.salePrice, settings.currencySymbol || 'Rs.')}
                   </span>
                 </>
               ) : (
                 <span className="text-3xl font-black text-[#173627]">
-                  {settings.currencySymbol || '$'}{product.price.toFixed(2)}
+                  {formatPKR(product.price, settings.currencySymbol || 'Rs.')}
                 </span>
               )}
             </div>
@@ -344,8 +345,7 @@ export const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({
             <div className="flex items-center gap-2.5">
               <Truck className="w-4 h-4 text-emerald-700 shrink-0" />
               <span>
-                Free shipping on orders over {settings.currencySymbol || '$'}
-                {settings.freeShippingThreshold || 75}
+                Free express delivery on orders over {formatPKR(settings.freeShippingThreshold || 5000, settings.currencySymbol || 'Rs.')}
               </span>
             </div>
             <div className="flex items-center gap-2.5">

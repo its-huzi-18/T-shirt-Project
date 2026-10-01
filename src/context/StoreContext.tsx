@@ -324,8 +324,8 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   // Cart financial calculations
   const cartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
   const cartSubtotal = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-  const isFreeShipping = cartSubtotal >= (settings.freeShippingThreshold || 75);
-  const shippingFee = cartSubtotal === 0 ? 0 : isFreeShipping ? 0 : settings.shippingFee || 6.0;
+  const isFreeShipping = cartSubtotal >= (settings.freeShippingThreshold || 5000);
+  const shippingFee = cartSubtotal === 0 ? 0 : isFreeShipping ? 0 : (settings.shippingFee ?? 250);
   const cartTotal = cartSubtotal + shippingFee;
 
   // Place Order function
@@ -375,6 +375,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       subtotal: cartSubtotal,
       shipping: shippingFee,
       total: cartTotal,
+      currency: 'PKR',
       paymentMethod: orderPayload.paymentMethod,
       paymentStatus: 'pending',
       orderStatus: 'Pending',
@@ -394,7 +395,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         id: notificationId,
         type: 'new_order',
         title: 'New Order Received',
-        message: `Order #${orderNumber} from ${orderPayload.customerName} (${settings.currencySymbol || '$'}${cartTotal.toFixed(2)})`,
+        message: `Order #${orderNumber} from ${orderPayload.customerName} (${settings.currencySymbol || 'Rs. '}${Math.round(cartTotal).toLocaleString()})`,
         orderId,
         orderNumber,
         isRead: false,

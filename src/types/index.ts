@@ -20,8 +20,8 @@ export interface Product {
   slug: string;
   description: string;
   shortDescription: string;
-  price: number;
-  salePrice?: number | null;
+  price: number; // in PKR
+  salePrice?: number | null; // in PKR
   sku: string;
   category: string;
   images: string[];
@@ -92,6 +92,7 @@ export interface Order {
   subtotal: number;
   shipping: number;
   total: number;
+  currency: string; // 'PKR'
   paymentMethod: 'cod' | 'card';
   paymentStatus: PaymentStatus;
   orderStatus: OrderStatus;
@@ -104,20 +105,43 @@ export interface Order {
 export interface StoreSettings {
   brandName: string;
   tagline: string;
+  logoUrl?: string;
+  faviconUrl?: string;
   heroHeading: string;
   heroDescription: string;
   heroImage: string;
   promoBanner: string;
   showPromoBanner: boolean;
+  primaryColor?: string;
+  secondaryColor?: string;
+  accentColor?: string;
   contactEmail: string;
   contactPhone: string;
+  businessEmail: string;
+  businessPhone: string;
+  whatsappNumber: string;
+  businessAddress: string;
+  supportEmail: string;
+  supportPhone: string;
   address: string;
   currency: string;
   currencySymbol: string;
   shippingFee: number;
   freeShippingThreshold: number;
+  deliveryDays?: string;
   instagramUrl?: string;
+  facebookUrl?: string;
+  tiktokUrl?: string;
   twitterUrl?: string;
+  footerText?: string;
+  styleInspirationTitle?: string;
+  styleInspirationSubtitle?: string;
+  styleInspirationAthlete1Name?: string;
+  styleInspirationAthlete1Image?: string;
+  styleInspirationAthlete1Role?: string;
+  styleInspirationAthlete2Name?: string;
+  styleInspirationAthlete2Image?: string;
+  styleInspirationAthlete2Role?: string;
 }
 
 export interface AdminNotification {
@@ -127,6 +151,8 @@ export interface AdminNotification {
   message: string;
   orderId?: string;
   orderNumber?: string;
+  customerName?: string;
+  total?: number;
   isRead: boolean;
   createdAt: string;
 }

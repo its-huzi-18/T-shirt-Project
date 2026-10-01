@@ -4,6 +4,8 @@ import { Heart, ShoppingBag, Eye, Star } from 'lucide-react';
 import { Product } from '../../types';
 import { useStore } from '../../context/StoreContext';
 
+import { formatPKR } from '../../lib/formatters';
+
 interface ProductCardProps {
   product: Product;
   onSelect: (product: Product) => void;
@@ -161,20 +163,20 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect }) =
             ))}
           </div>
 
-          {/* Price */}
+          {/* Price in PKR */}
           <div className="flex items-baseline gap-1.5">
             {product.salePrice ? (
               <>
                 <span className="text-base sm:text-lg font-black text-[#173627]">
-                  {settings.currencySymbol || '$'}{product.salePrice.toFixed(2)}
+                  {formatPKR(product.salePrice, settings.currencySymbol || 'Rs.')}
                 </span>
                 <span className="text-xs text-stone-400 line-through">
-                  {settings.currencySymbol || '$'}{product.price.toFixed(2)}
+                  {formatPKR(product.price, settings.currencySymbol || 'Rs.')}
                 </span>
               </>
             ) : (
               <span className="text-base sm:text-lg font-black text-[#173627]">
-                {settings.currencySymbol || '$'}{product.price.toFixed(2)}
+                {formatPKR(product.price, settings.currencySymbol || 'Rs.')}
               </span>
             )}
           </div>

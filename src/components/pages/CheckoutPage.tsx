@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { useStore } from '../../context/StoreContext';
 import { useAuth } from '../../context/AuthContext';
+import { formatPKR } from '../../lib/formatters';
 
 interface CheckoutPageProps {
   onOrderSuccess: (orderId: string, orderNumber: string) => void;
@@ -27,7 +28,7 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ onOrderSuccess, onBa
     email: currentUser?.email || '',
     phone: '',
     address: '',
-    city: 'New York',
+    city: 'Lahore',
     area: '',
     postalCode: '',
     notes: '',
@@ -41,6 +42,25 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ onOrderSuccess, onBa
   const [cardNumber, setCardNumber] = useState('');
   const [cardExpiry, setCardExpiry] = useState('');
   const [cardCvc, setCardCvc] = useState('');
+
+  const pakistanCities = [
+    'Lahore',
+    'Karachi',
+    'Islamabad',
+    'Rawalpindi',
+    'Faisalabad',
+    'Multan',
+    'Peshawar',
+    'Sialkot',
+    'Gujranwala',
+    'Hyderabad',
+    'Quetta',
+    'Abbottabad',
+    'Bahawalpur',
+    'Sargodha',
+    'Sukkur',
+    'Other City',
+  ];
 
   if (cart.length === 0) {
     return (
@@ -71,8 +91,8 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ onOrderSuccess, onBa
       setErrorMessage('Please enter your full name');
       return;
     }
-    if (!formData.phone.trim() || formData.phone.length < 7) {
-      setErrorMessage('Please enter a valid phone number for delivery contact');
+    if (!formData.phone.trim() || formData.phone.length < 8) {
+      setErrorMessage('Please enter a valid phone number (e.g. 0310 1284712)');
       return;
     }
     if (!formData.email.trim() || !formData.email.includes('@')) {
@@ -126,7 +146,7 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ onOrderSuccess, onBa
       <div className="pb-8 border-b border-stone-200">
         <h1 className="text-3xl font-black font-heading text-[#173627]">Secure Checkout</h1>
         <p className="text-xs text-stone-500 mt-1">
-          Complete your delivery details. All orders are packed with artisan care in 100% recyclable mailers.
+          Complete your delivery details for Cash on Delivery across Pakistan.
         </p>
       </div>
 
@@ -159,35 +179,35 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ onOrderSuccess, onBa
                     required
                     value={formData.fullName}
                     onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                    placeholder="Jordan Miller"
+                    placeholder="Muhammad Ali"
                     className="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-xs sm:text-sm focus:outline-hidden focus:border-[#173627]"
                   />
                 </div>
 
                 <div>
                   <label className="block text-xs font-semibold text-stone-700 mb-1">
-                    Phone Number (for Courier updates) <span className="text-rose-500">*</span>
+                    Mobile Number (for Courier Call / WhatsApp) <span className="text-rose-500">*</span>
                   </label>
                   <input
                     type="tel"
                     required
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    placeholder="+1 (555) 019-2834"
+                    placeholder="0310 1284712"
                     className="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-xs sm:text-sm focus:outline-hidden focus:border-[#173627]"
                   />
                 </div>
 
                 <div className="sm:col-span-2">
                   <label className="block text-xs font-semibold text-stone-700 mb-1">
-                    Email Address (for order receipt & tracking) <span className="text-rose-500">*</span>
+                    Email Address (for Order Confirmation & Tracking) <span className="text-rose-500">*</span>
                   </label>
                   <input
                     type="email"
                     required
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    placeholder="jordan@example.com"
+                    placeholder="customer@example.com"
                     className="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-xs sm:text-sm focus:outline-hidden focus:border-[#173627]"
                   />
                 </div>
@@ -200,20 +220,20 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ onOrderSuccess, onBa
                 <span className="w-6 h-6 rounded-full bg-[#173627] text-white text-xs flex items-center justify-center font-bold">
                   2
                 </span>
-                Delivery Address
+                Delivery Address in Pakistan
               </h2>
 
               <div className="space-y-4">
                 <div>
                   <label className="block text-xs font-semibold text-stone-700 mb-1">
-                    Street Address & Apartment / Suite <span className="text-rose-500">*</span>
+                    House / Street Address, Sector, Flat No. <span className="text-rose-500">*</span>
                   </label>
                   <input
                     type="text"
                     required
                     value={formData.address}
                     onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                    placeholder="742 Evergreen Terrace, Apt 4B"
+                    placeholder="House 42, Street 8, Phase 5, DHA"
                     className="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-xs sm:text-sm focus:outline-hidden focus:border-[#173627]"
                   />
                 </div>
@@ -223,38 +243,41 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ onOrderSuccess, onBa
                     <label className="block text-xs font-semibold text-stone-700 mb-1">
                       City <span className="text-rose-500">*</span>
                     </label>
-                    <input
-                      type="text"
-                      required
+                    <select
                       value={formData.city}
                       onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                      placeholder="New York"
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-xs sm:text-sm focus:outline-hidden focus:border-[#173627]"
-                    />
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-xs sm:text-sm focus:outline-hidden focus:border-[#173627] bg-white font-semibold"
+                    >
+                      {pakistanCities.map((c) => (
+                        <option key={c} value={c}>
+                          {c}
+                        </option>
+                      ))}
+                    </select>
                   </div>
 
                   <div>
                     <label className="block text-xs font-semibold text-stone-700 mb-1">
-                      Area / Neighborhood
+                      Area / Tehsil
                     </label>
                     <input
                       type="text"
                       value={formData.area}
                       onChange={(e) => setFormData({ ...formData, area: e.target.value })}
-                      placeholder="Manhattan / SoHo"
+                      placeholder="e.g. Gulberg / Clifton"
                       className="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-xs sm:text-sm focus:outline-hidden focus:border-[#173627]"
                     />
                   </div>
 
                   <div>
                     <label className="block text-xs font-semibold text-stone-700 mb-1">
-                      Postal Code
+                      Postal Code (Optional)
                     </label>
                     <input
                       type="text"
                       value={formData.postalCode}
                       onChange={(e) => setFormData({ ...formData, postalCode: e.target.value })}
-                      placeholder="10013"
+                      placeholder="54000"
                       className="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-xs sm:text-sm focus:outline-hidden focus:border-[#173627]"
                     />
                   </div>
@@ -262,13 +285,13 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ onOrderSuccess, onBa
 
                 <div>
                   <label className="block text-xs font-semibold text-stone-700 mb-1">
-                    Delivery Instructions / Special Notes
+                    Special Delivery Instructions (Optional)
                   </label>
                   <textarea
                     rows={2}
                     value={formData.notes}
                     onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                    placeholder="Leave with doorman or gate access code #409..."
+                    placeholder="Deliver between 2 PM to 6 PM, call before arriving..."
                     className="w-full p-3 rounded-xl border border-stone-300 text-xs focus:outline-hidden focus:border-[#173627]"
                   />
                 </div>
@@ -297,14 +320,14 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ onOrderSuccess, onBa
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2.5">
                       <Banknote className="w-5 h-5 text-emerald-800" />
-                      <span className="font-bold text-xs sm:text-sm text-stone-900">Cash on Delivery</span>
+                      <span className="font-bold text-xs sm:text-sm text-stone-900">Cash on Delivery (COD)</span>
                     </div>
                     {paymentMethod === 'cod' && (
                       <CheckCircle2 className="w-5 h-5 text-emerald-700 fill-emerald-100" />
                     )}
                   </div>
                   <p className="text-[11px] text-stone-500 mt-2 leading-relaxed">
-                    Pay securely with cash or card upon arrival at your doorstep. Zero prepayment risk.
+                    Pay securely in cash when the courier arrives at your doorstep anywhere in Pakistan. Recommended.
                   </p>
                 </div>
 
@@ -327,7 +350,7 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ onOrderSuccess, onBa
                     )}
                   </div>
                   <p className="text-[11px] text-stone-500 mt-2 leading-relaxed">
-                    256-bit encrypted checkout. Supports Visa, Mastercard, AMEX.
+                    256-bit encrypted checkout. Supports Visa, Mastercard, and UnionPay.
                   </p>
                 </div>
               </div>
@@ -386,10 +409,10 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ onOrderSuccess, onBa
               disabled={isSubmitting}
               className="w-full py-4 px-6 rounded-2xl bg-[#173627] hover:bg-[#11291E] text-white font-black text-sm uppercase tracking-wider shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 disabled:opacity-50"
             >
-              <Lock className="w-4 h-4 text-emerald-400" />
+              <Lock className="w-4 h-4 text-[#D4AF37]" />
               {isSubmitting
                 ? 'Processing Your Order...'
-                : `Place Order • ${settings.currencySymbol || '$'}${cartTotal.toFixed(2)}`}
+                : `Place Order • ${formatPKR(cartTotal, settings.currencySymbol || 'Rs.')}`}
               {!isSubmitting && <ArrowRight className="w-4 h-4" />}
             </button>
           </form>
@@ -419,29 +442,29 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ onOrderSuccess, onBa
                     </p>
                   </div>
                   <span className="text-xs font-bold text-stone-900 shrink-0">
-                    {settings.currencySymbol || '$'}{(item.price * item.quantity).toFixed(2)}
+                    {formatPKR(item.price * item.quantity, settings.currencySymbol || 'Rs.')}
                   </span>
                 </div>
               ))}
             </div>
 
-            {/* Financial lines */}
+            {/* Financial lines in PKR */}
             <div className="pt-4 border-t border-stone-200 space-y-2 text-xs text-stone-600">
               <div className="flex justify-between">
                 <span>Subtotal</span>
                 <span className="font-bold text-stone-900">
-                  {settings.currencySymbol || '$'}{cartSubtotal.toFixed(2)}
+                  {formatPKR(cartSubtotal, settings.currencySymbol || 'Rs.')}
                 </span>
               </div>
               <div className="flex justify-between">
                 <span>Shipping</span>
                 <span className="font-bold text-emerald-800">
-                  {isFreeShipping ? 'FREE' : `${settings.currencySymbol || '$'}${shippingFee.toFixed(2)}`}
+                  {isFreeShipping ? 'FREE' : formatPKR(shippingFee, settings.currencySymbol || 'Rs.')}
                 </span>
               </div>
               <div className="flex justify-between text-base font-black text-[#173627] pt-2 border-t border-stone-200">
                 <span>Grand Total</span>
-                <span>{settings.currencySymbol || '$'}{cartTotal.toFixed(2)}</span>
+                <span className="text-[#173627]">{formatPKR(cartTotal, settings.currencySymbol || 'Rs.')}</span>
               </div>
             </div>
 
@@ -449,11 +472,11 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ onOrderSuccess, onBa
             <div className="p-3 bg-stone-50 rounded-xl text-stone-500 text-[11px] space-y-1.5 border border-stone-100">
               <div className="flex items-center gap-2 text-stone-700 font-semibold">
                 <Truck className="w-3.5 h-3.5 text-emerald-800" />
-                <span>Estimated dispatch in 24 - 48 hours</span>
+                <span>Estimated courier delivery in {settings.deliveryDays || '2 - 4 business days'}</span>
               </div>
               <div className="flex items-center gap-2 text-stone-700 font-semibold">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-800" />
-                <span>Free 14-day exchange on all orders</span>
+                <span>Cash on delivery with parcel inspection</span>
               </div>
             </div>
           </div>

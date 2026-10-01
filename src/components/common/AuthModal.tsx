@@ -11,7 +11,7 @@ interface AuthModalProps {
 }
 
 export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialMode = 'login' }) => {
-  const { loginWithEmail, signupWithEmail, loginWithGoogle, demoAdminLogin, currentUser, logout } = useAuth();
+  const { loginWithEmail, signupWithEmail, loginWithGoogle, currentUser, logout } = useAuth();
   const { showToast } = useStore();
   const [mode, setMode] = useState<'login' | 'signup'>(initialMode);
   const [email, setEmail] = useState('');
@@ -43,7 +43,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialMo
       const msg = err instanceof Error ? err.message : 'Authentication failed';
       // User-friendly messages
       if (msg.includes('user-not-found') || msg.includes('wrong-password') || msg.includes('invalid-credential')) {
-        setErrorMsg('Invalid email or password. You can also sign in with Google or use the Demo Admin button.');
+        setErrorMsg('Invalid email or password. Please check your credentials or continue with Google.');
       } else if (msg.includes('email-already-in-use')) {
         setErrorMsg('An account with this email already exists.');
       } else {
@@ -67,12 +67,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialMo
     }
   };
 
-  const handleDemoAdmin = () => {
-    demoAdminLogin();
-    showToast('Signed in as Admin! You now have full store control.', 'success');
-    onClose();
-  };
-
   return (
     <AnimatePresence>
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -93,7 +87,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialMo
           <div className="flex items-center justify-between pb-4 border-b border-stone-200">
             <div>
               <h3 className="text-xl font-black font-heading text-[#173627]">
-                {currentUser ? 'Your Account' : mode === 'login' ? 'Sign In to Verdant' : 'Create an Account'}
+                {currentUser ? 'Your Account' : mode === 'login' ? 'Sign In to HA Clothing' : 'Create an Account'}
               </h3>
               <p className="text-xs text-stone-500 mt-0.5">
                 {currentUser ? currentUser.email : 'Track orders, manage wishlist & faster checkout'}
@@ -240,18 +234,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialMo
                   {mode === 'login'
                     ? "Don't have an account? Sign up"
                     : 'Already have an account? Sign in'}
-                </button>
-              </div>
-
-              {/* Demo Admin Quick Button */}
-              <div className="pt-3 border-t border-stone-200">
-                <button
-                  type="button"
-                  onClick={handleDemoAdmin}
-                  className="w-full py-2.5 px-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-emerald-900 font-bold text-xs flex items-center justify-center gap-2 transition-colors"
-                >
-                  <ShieldCheck className="w-4 h-4 text-emerald-700" />
-                  Quick Access: Login as Store Administrator
                 </button>
               </div>
             </div>

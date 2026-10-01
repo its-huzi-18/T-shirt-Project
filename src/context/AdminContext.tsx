@@ -40,6 +40,7 @@ interface AdminContextType {
   unreadNotifCount: number;
   metrics: AdminMetrics;
   isLoading: boolean;
+  categories: Category[];
   updateOrderStatus: (orderId: string, status: OrderStatus) => Promise<void>;
   updatePaymentStatus: (orderId: string, status: PaymentStatus) => Promise<void>;
   updateAdminNotes: (orderId: string, notes: string) => Promise<void>;
@@ -79,7 +80,7 @@ function playOrderChime() {
 
 export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAdmin } = useAuth();
-  const { products, showToast } = useStore();
+  const { products, categories, showToast } = useStore();
   const [orders, setOrders] = useState<Order[]>([]);
   const [notifications, setNotifications] = useState<AdminNotification[]>([]);
   const [customers, setCustomers] = useState<CustomerUser[]>([]);
@@ -397,6 +398,7 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         unreadNotifCount,
         metrics,
         isLoading,
+        categories,
         updateOrderStatus,
         updatePaymentStatus,
         updateAdminNotes,

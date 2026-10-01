@@ -1,23 +1,43 @@
 import { Product, Category, StoreSettings } from '../types';
 
 export const INITIAL_SETTINGS: StoreSettings = {
-  brandName: 'VERDANT THREADS',
-  tagline: 'Artisan Custom Printed Heavyweight T-Shirts',
+  brandName: 'HA CLOTHING',
+  tagline: 'Premium Heavyweight Streetwear & Custom Printed T-Shirts',
+  logoUrl: '/images/ha_clothing_logo.jpg',
+  faviconUrl: '/images/ha_clothing_logo.jpg',
   heroHeading: 'WEAR YOUR CREATIVITY',
   heroDescription:
-    'Heavyweight 240+ GSM combed organic cotton meets archival Japanese screen prints and tactile 3D puff designs. Built for silhouettes that command attention.',
+    'Heavyweight 240+ GSM combed organic cotton meets archival Japanese screen prints and tactile 3D puff designs. Engineered for enduring structure across Pakistan.',
   heroImage: '/images/hero_tshirt_banner_1790863003479.jpg',
-  promoBanner: 'SPRING 2026 DROP: COMPLIMENTARY SHIPPING ON ORDERS OVER $75 • 48H ARTISAN DISPATCH',
+  promoBanner: 'SPRING 2026 DROP: COMPLIMENTARY EXPRESS DELIVERY ON ORDERS OVER RS. 5,000 • CASH ON DELIVERY NATIONWIDE',
   showPromoBanner: true,
-  contactEmail: 'studio@verdantthreads.com',
-  contactPhone: '+1 (800) 837-3268',
-  address: '412 Artisan Way, Fashion Design District, NY 10013',
-  currency: 'USD',
-  currencySymbol: '$',
-  shippingFee: 6.0,
-  freeShippingThreshold: 75.0,
-  instagramUrl: 'https://instagram.com/verdantthreads',
-  twitterUrl: 'https://twitter.com/verdantthreads',
+  contactEmail: 'support@haclothing.com',
+  contactPhone: '0310 1284712',
+  businessEmail: 'support@haclothing.com',
+  businessPhone: '0310 1284712',
+  whatsappNumber: '+92 310 1284712',
+  businessAddress: 'Hammad and Ayaan Apparel Studio, Fashion Ave, Lahore, Pakistan',
+  supportEmail: 'orders@haclothing.com',
+  supportPhone: '0310 1284712',
+  address: 'Hammad and Ayaan Studio, Fashion Ave, Lahore, Pakistan',
+  currency: 'PKR',
+  currencySymbol: 'Rs.',
+  shippingFee: 250,
+  freeShippingThreshold: 5000,
+  deliveryDays: '2 - 4 business days nationwide (TCS / Leopard / Call Courier)',
+  instagramUrl: 'https://instagram.com/haclothing',
+  facebookUrl: 'https://facebook.com/haclothing',
+  tiktokUrl: 'https://tiktok.com/@haclothing',
+  twitterUrl: 'https://twitter.com/haclothing',
+  footerText: 'HA Clothing — Premium Heavyweight Streetwear. Designed & manufactured with artisanal precision in Pakistan.',
+  styleInspirationTitle: 'Style Inspiration',
+  styleInspirationSubtitle: 'Athletic Dominance Meets Contemporary Street Silhouette',
+  styleInspirationAthlete1Name: 'Babar Azam',
+  styleInspirationAthlete1Role: 'Modern Cricket Icon & Streetwear Pioneer',
+  styleInspirationAthlete1Image: '/images/babar_azam.jpg',
+  styleInspirationAthlete2Name: 'Virat Kohli',
+  styleInspirationAthlete2Role: 'Global Sporting Phenomenon & Athleisure Influence',
+  styleInspirationAthlete2Image: '/images/virat_kohli.jpg',
 };
 
 export const INITIAL_CATEGORIES: Category[] = [
@@ -63,9 +83,9 @@ export const INITIAL_PRODUCTS: Product[] = [
     description:
       'Engineered from 260 GSM combed organic cotton in our signature deep forest emerald hue. Features a high-resolution botanical line-art study across the back with subtle minimalist coordinates on the left chest. Ribbed 1.25" neckband and double-needle stitching throughout for lifetime durability.',
     shortDescription: '260 GSM heavyweight organic cotton with archival Japanese botanical back print.',
-    price: 48,
-    salePrice: 42,
-    sku: 'VT-BOT-01',
+    price: 3499,
+    salePrice: 2999,
+    sku: 'HA-BOT-01',
     category: 'Printed T-Shirts',
     images: [
       '/images/product_forest_tee_1790863018752.jpg',
@@ -99,9 +119,9 @@ export const INITIAL_PRODUCTS: Product[] = [
     description:
       'Hand-treated enzyme vintage wash that creates a velvety soft, worn-in patina on a 240 GSM heavy jersey base. Featuring brutalist typography and distressed monochrome screen printing across the reverse. Pre-shrunk to hold its shape through hundreds of wash cycles.',
     shortDescription: 'Vintage washed 240 GSM heavyweight black tee with distressed graphic art.',
-    price: 52,
-    salePrice: 45,
-    sku: 'VT-VNT-02',
+    price: 3899,
+    salePrice: 3299,
+    sku: 'HA-VNT-02',
     category: 'Graphic T-Shirts',
     images: [
       '/images/product_black_tee_1790863039839.jpg',
@@ -134,9 +154,9 @@ export const INITIAL_PRODUCTS: Product[] = [
     description:
       'Elevate your wardrobe with tactile 3D raised puff printing that you can physically feel. Printed on unbleached 250 GSM French Terry cotton in an artisanal sand tone. Features high-density relief typography paired with muted olive green accents.',
     shortDescription: 'Unbleached sand 250 GSM cotton with high-density tactile 3D puff print.',
-    price: 54,
+    price: 3699,
     salePrice: null,
-    sku: 'VT-PUF-03',
+    sku: 'HA-PUF-03',
     category: 'Oversized T-Shirts',
     images: [
       '/images/product_sand_tee_1790863056583.jpg',
@@ -170,9 +190,9 @@ export const INITIAL_PRODUCTS: Product[] = [
     description:
       'Striking asymmetrical typography inspired by Tokyo architectural signage and modernist poster art. Water-based discharge printing yields an exceptionally breathable, ultra-soft feel that embeds directly into the cotton fibers without heavy plastic sheen.',
     shortDescription: 'Water-based discharge typography print on 240 GSM organic ring-spun cotton.',
-    price: 46,
-    salePrice: 39,
-    sku: 'VT-TYO-04',
+    price: 3199,
+    salePrice: 2699,
+    sku: 'HA-TYO-04',
     category: 'Graphic T-Shirts',
     images: [
       '/images/product_forest_tee_1790863018752.jpg',
@@ -206,9 +226,9 @@ export const INITIAL_PRODUCTS: Product[] = [
     description:
       'Your canvas, our artisan print workshop. Choose your exact placement (center chest, full back, left chest emblem, or sleeve cuff), upload your vector or high-resolution graphic, and let our master printers bring it to life using premium Swiss inks on 280 GSM luxury combed cotton.',
     shortDescription: 'Blank canvas for your custom artwork with front/back/sleeve placement options.',
-    price: 50,
+    price: 3499,
     salePrice: null,
-    sku: 'VT-CUS-05',
+    sku: 'HA-CUS-05',
     category: 'Custom T-Shirts',
     images: [
       '/images/hero_tshirt_banner_1790863003479.jpg',
@@ -243,9 +263,9 @@ export const INITIAL_PRODUCTS: Product[] = [
     description:
       'An ode to solar equinoxes, blending earthy mustard, terracotta, and deep forest hues. Printed on our softest 230 GSM organic ring-spun cotton. Pre-washed with silicone enzyme bath for an impossibly buttery drape.',
     shortDescription: 'Artistic multi-color solar artwork screen printed on butter-soft combed cotton.',
-    price: 45,
-    salePrice: 38,
-    sku: 'VT-SUN-06',
+    price: 2999,
+    salePrice: 2499,
+    sku: 'HA-SUN-06',
     category: 'Printed T-Shirts',
     images: [
       '/images/product_sand_tee_1790863056583.jpg',

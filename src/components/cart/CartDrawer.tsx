@@ -2,6 +2,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, Plus, Minus, Trash2, ArrowRight, ShoppingBag, Truck } from 'lucide-react';
 import { useStore } from '../../context/StoreContext';
+import { formatPKR } from '../../lib/formatters';
 
 interface CartDrawerProps {
   onNavigateToCheckout: () => void;
@@ -71,7 +72,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onNavigateToCheckout, on
                     <span className="text-emerald-300 font-bold">🎉 Congratulations! You have unlocked Free Shipping!</span>
                   ) : (
                     <span>
-                      Add <strong className="text-emerald-300">{settings.currencySymbol || '$'}{remainingForFreeShipping.toFixed(2)}</strong> more for FREE Shipping!
+                      Add <strong className="text-emerald-300">{formatPKR(remainingForFreeShipping, settings.currencySymbol || 'Rs.')}</strong> more for FREE Shipping!
                     </span>
                   )}
                 </div>
@@ -153,10 +154,10 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onNavigateToCheckout, on
                             </button>
                           </div>
 
-                          {/* Price */}
+                          {/* Price in PKR */}
                           <div className="text-right">
                             <span className="text-sm font-black text-[#173627]">
-                              {settings.currencySymbol || '$'}{(item.price * item.quantity).toFixed(2)}
+                              {formatPKR(item.price * item.quantity, settings.currencySymbol || 'Rs.')}
                             </span>
                           </div>
                         </div>
@@ -182,18 +183,18 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onNavigateToCheckout, on
                     <div className="flex justify-between">
                       <span>Subtotal</span>
                       <span className="font-bold text-stone-900">
-                        {settings.currencySymbol || '$'}{cartSubtotal.toFixed(2)}
+                        {formatPKR(cartSubtotal, settings.currencySymbol || 'Rs.')}
                       </span>
                     </div>
                     <div className="flex justify-between">
                       <span>Estimated Shipping</span>
                       <span className="font-bold text-stone-900">
-                        {isFreeShipping ? 'FREE' : `${settings.currencySymbol || '$'}${shippingFee.toFixed(2)}`}
+                        {isFreeShipping ? 'FREE' : formatPKR(shippingFee, settings.currencySymbol || 'Rs.')}
                       </span>
                     </div>
                     <div className="flex justify-between text-base font-black text-[#173627] pt-2 border-t border-stone-100">
                       <span>Total</span>
-                      <span>{settings.currencySymbol || '$'}{cartTotal.toFixed(2)}</span>
+                      <span>{formatPKR(cartTotal, settings.currencySymbol || 'Rs.')}</span>
                     </div>
                   </div>
 

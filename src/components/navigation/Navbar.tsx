@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Search, ShoppingBag, Heart, User, ShieldCheck, Menu, X, ArrowUpRight } from 'lucide-react';
+import { Search, ShoppingBag, Heart, User, ShieldCheck, Menu, X, ArrowUpRight, MessageCircle } from 'lucide-react';
 import { useStore } from '../../context/StoreContext';
 import { useAuth } from '../../context/AuthContext';
+import { BrandLogo } from '../common/BrandLogo';
 
 interface NavbarProps {
   currentPage: string;
@@ -22,7 +23,10 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate, onNavig
     { id: 'custom-print', label: 'Custom Studio' },
     { id: 'tracking', label: 'Track Order' },
     { id: 'about', label: 'About' },
+    { id: 'contact', label: 'Contact' },
   ];
+
+  const whatsappClean = (settings.whatsappNumber || '03101284712').replace(/[^0-9]/g, '');
 
   return (
     <>
@@ -30,7 +34,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate, onNavig
         {/* Top Promo Banner */}
         {settings.showPromoBanner && (
           <div className="bg-[#0E2218] text-[#FAF7F2] py-2 px-4 text-center text-xs font-semibold tracking-wider uppercase border-b border-emerald-950/50 flex items-center justify-center gap-2">
-            <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="inline-block w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse" />
             <span>{settings.promoBanner}</span>
           </div>
         )}
@@ -50,19 +54,9 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate, onNavig
                 </button>
               </div>
 
-              {/* Brand Logo */}
-              <div className="flex items-center gap-3 cursor-pointer" onClick={() => onNavigate('home')}>
-                <div className="w-10 h-10 rounded-xl bg-[#173627] text-[#FAF7F2] flex items-center justify-center font-heading font-black text-xl shadow-md border border-emerald-900">
-                  V
-                </div>
-                <div className="flex flex-col">
-                  <span className="font-heading font-black tracking-tight text-lg sm:text-xl text-[#173627] leading-none">
-                    {settings.brandName || 'VERDANT THREADS'}
-                  </span>
-                  <span className="text-[10px] uppercase font-bold tracking-widest text-emerald-800/80 mt-0.5 hidden sm:block">
-                    Artisan Heavyweight Apparel
-                  </span>
-                </div>
+              {/* Brand Logo with Medallion */}
+              <div className="cursor-pointer" onClick={() => onNavigate('home')}>
+                <BrandLogo size="md" />
               </div>
 
               {/* Desktop Navigation Links */}
@@ -71,7 +65,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate, onNavig
                   <button
                     key={link.id}
                     onClick={() => onNavigate(link.id)}
-                    className={`px-3.5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
+                    className={`px-3 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
                       currentPage === link.id
                         ? 'bg-[#173627] text-white shadow-xs'
                         : 'text-stone-700 hover:text-[#173627] hover:bg-stone-200/50'
@@ -84,6 +78,20 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate, onNavig
 
               {/* Right Action Icons */}
               <div className="flex items-center gap-1 sm:gap-2">
+                {/* WhatsApp Direct Chat Button */}
+                {settings.whatsappNumber && (
+                  <a
+                    href={`https://wa.me/${whatsappClean}?text=Hi%20HA%20Clothing,%20I%20have%20an%20inquiry%20regarding%20an%20order`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hidden md:flex items-center gap-1.5 py-1.5 px-3 rounded-xl bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-200 text-xs font-bold transition-colors"
+                    title="Direct WhatsApp Support"
+                  >
+                    <MessageCircle className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>WhatsApp</span>
+                  </a>
+                )}
+
                 {/* Search Button */}
                 <button
                   onClick={() => setIsSearchOpen(true)}
@@ -122,18 +130,18 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate, onNavig
                   )}
                 </button>
 
-                {/* Admin Access Quick Button */}
+                {/* Admin Access Button */}
                 <button
                   onClick={onNavigateAdmin}
-                  className={`hidden sm:flex items-center gap-1.5 py-1.5 px-3 rounded-xl border text-xs font-bold uppercase tracking-wider transition-all ${
+                  className={`flex items-center gap-1.5 py-1.5 px-3 rounded-xl border text-xs font-bold uppercase tracking-wider transition-all ${
                     isAdmin
-                      ? 'bg-emerald-950 text-emerald-300 border-emerald-800 hover:bg-emerald-900 shadow-xs'
+                      ? 'bg-emerald-950 text-[#D4AF37] border-emerald-800 hover:bg-emerald-900 shadow-xs'
                       : 'bg-stone-100 text-stone-700 border-stone-300 hover:bg-stone-200'
                   }`}
                   title="Store Admin Panel"
                 >
                   <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                  <span>Admin</span>
+                  <span className="hidden sm:inline">Admin</span>
                 </button>
 
                 {/* Shopping Bag Button */}
@@ -164,14 +172,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate, onNavig
           <div className="fixed inset-y-0 left-0 w-4/5 max-w-sm bg-[#FAF7F2] p-6 shadow-2xl z-10 flex flex-col justify-between border-r border-stone-200">
             <div>
               <div className="flex items-center justify-between pb-6 border-b border-stone-200">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-[#173627] text-white flex items-center justify-center font-heading font-black">
-                    V
-                  </div>
-                  <span className="font-heading font-black text-[#173627] tracking-tight">
-                    {settings.brandName || 'VERDANT THREADS'}
-                  </span>
-                </div>
+                <BrandLogo size="md" />
                 <button
                   onClick={() => setMobileMenuOpen(false)}
                   className="p-1 rounded-lg text-stone-400 hover:text-stone-800"
@@ -204,25 +205,27 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate, onNavig
 
             {/* Bottom Actions */}
             <div className="pt-6 border-t border-stone-200 space-y-3">
+              {settings.whatsappNumber && (
+                <a
+                  href={`https://wa.me/${whatsappClean}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-3 rounded-xl bg-emerald-700 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  Chat on WhatsApp ({settings.businessPhone || settings.whatsappNumber})
+                </a>
+              )}
+
               <button
                 onClick={() => {
                   onNavigateAdmin();
                   setMobileMenuOpen(false);
                 }}
-                className="w-full py-3 rounded-xl bg-emerald-950 text-emerald-300 font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2"
+                className="w-full py-2.5 rounded-xl bg-emerald-950 text-[#D4AF37] font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2"
               >
                 <ShieldCheck className="w-4 h-4" />
                 Open Admin Dashboard
-              </button>
-
-              <button
-                onClick={() => {
-                  setIsAuthModalOpen(true);
-                  setMobileMenuOpen(false);
-                }}
-                className="w-full py-2.5 rounded-xl border border-stone-300 text-stone-700 font-bold text-xs uppercase tracking-wider text-center"
-              >
-                {currentUser ? 'Manage Account' : 'Customer Sign In'}
               </button>
             </div>
           </div>

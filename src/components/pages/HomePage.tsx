@@ -18,6 +18,8 @@ import {
 } from 'lucide-react';
 import { useStore } from '../../context/StoreContext';
 import { ProductCard } from '../products/ProductCard';
+import { StyleInspirationSection } from '../home/StyleInspirationSection';
+import { BrandLogo } from '../common/BrandLogo';
 import { Product } from '../../types';
 
 interface HomePageProps {
@@ -41,20 +43,20 @@ export const HomePage: React.FC<HomePageProps> = ({
 
   const faqs = [
     {
-      q: 'What makes your T-shirts "heavyweight" compared to regular brands?',
-      a: 'Standard commercial t-shirts are typically 140 to 180 GSM and feel flimsy after a few washes. Verdant Threads shirts are crafted from dense 240 to 280 GSM combed organic ring-spun cotton. They hold a clean structured boxy drape, do not cling, and maintain their shape for years.',
+      q: 'What makes HA Clothing T-shirts "heavyweight" compared to regular brands?',
+      a: 'Standard commercial t-shirts are typically 140 to 180 GSM and feel flimsy after a few washes. HA Clothing garments are crafted from dense 240 to 280 GSM combed organic ring-spun cotton. They hold a clean structured boxy drape, do not cling, and maintain their shape for years.',
     },
     {
       q: 'Will the screen print crack or fade in the wash?',
       a: 'No. We use industrial water-based discharge and archival plastisol inks cured in a tunnel dryer at 320°F. The pigments fuse directly into the cotton fibers rather than sitting on top like cheap heat transfers. Simply wash cold inside-out.',
     },
     {
-      q: 'How does Cash on Delivery (COD) work?',
-      a: 'Select "Cash on Delivery" at checkout. We prepare and print your shirt, dispatch with our courier partners, and you simply pay cash or card upon arrival at your doorstep. Zero upfront risk.',
+      q: 'How does Cash on Delivery (COD) work across Pakistan?',
+      a: 'Select "Cash on Delivery" at checkout. We prepare and print your shirt, dispatch via TCS, Leopard, or Call Courier, and you simply pay cash upon arrival at your doorstep anywhere in Pakistan. Zero upfront risk.',
     },
     {
-      q: 'Can I print my own custom artwork on your shirts?',
-      a: 'Yes! Visit our Custom Studio page where you can upload your graphics, select your blank garment weight and color, choose front/back placement, and order single units or bulk batches.',
+      q: 'Can I print my own custom artwork or bulk corporate orders?',
+      a: 'Yes! Visit our Custom Studio page where you can upload your graphics, select your blank garment weight and color, choose front/back placement, and order single units or bulk batches with nationwide delivery.',
     },
   ];
 
@@ -71,9 +73,9 @@ export const HomePage: React.FC<HomePageProps> = ({
               transition={{ duration: 0.6, ease: 'easeOut' }}
               className="lg:col-span-7 space-y-6"
             >
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-950 text-emerald-300 text-xs font-bold tracking-wider uppercase border border-emerald-800/80 shadow-xs">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                Seasonal Drop 03 • 240-280 GSM Editions
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-950 text-[#D4AF37] text-xs font-bold tracking-wider uppercase border border-[#D4AF37]/30 shadow-xs">
+                <span className="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse" />
+                HA Clothing • 240-280 GSM Heavyweight Drop
               </div>
 
               <h1 className="text-4xl sm:text-6xl xl:text-7xl font-black font-heading tracking-tight text-[#173627] leading-[1.02]">
@@ -82,7 +84,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
               <p className="text-sm sm:text-base text-stone-600 max-w-xl leading-relaxed">
                 {settings.heroDescription ||
-                  'Heavyweight 240+ GSM combed organic cotton meets archival Japanese screen prints and tactile 3D puff designs. Built for silhouettes that command attention.'}
+                  'Heavyweight 240+ GSM combed organic cotton meets archival Japanese screen prints and tactile 3D puff designs. Built for silhouettes that command attention across Pakistan.'}
               </p>
 
               {/* CTAs */}
@@ -109,15 +111,15 @@ export const HomePage: React.FC<HomePageProps> = ({
               <div className="pt-6 grid grid-cols-3 gap-4 border-t border-stone-200/90 text-xs">
                 <div>
                   <span className="font-heading font-black text-lg sm:text-xl text-[#173627] block">240+ GSM</span>
-                  <span className="text-stone-500 font-medium text-[11px]">Ultra-heavy combed cotton</span>
+                  <span className="text-stone-500 font-medium text-[11px]">Dense combed organic cotton</span>
                 </div>
                 <div>
                   <span className="font-heading font-black text-lg sm:text-xl text-[#173627] block">100% Eco-Inks</span>
                   <span className="text-stone-500 font-medium text-[11px]">Archival Swiss pigments</span>
                 </div>
                 <div>
-                  <span className="font-heading font-black text-lg sm:text-xl text-[#173627] block">48h Dispatch</span>
-                  <span className="text-stone-500 font-medium text-[11px]">Doorstep COD & Express</span>
+                  <span className="font-heading font-black text-lg sm:text-xl text-[#173627] block">Nationwide COD</span>
+                  <span className="text-stone-500 font-medium text-[11px]">Pay upon delivery in Pakistan</span>
                 </div>
               </div>
             </motion.div>
@@ -132,19 +134,17 @@ export const HomePage: React.FC<HomePageProps> = ({
               <div className="relative aspect-4/5 rounded-3xl overflow-hidden shadow-2xl border border-stone-200 bg-stone-100 group">
                 <img
                   src={settings.heroImage || '/images/hero_tshirt_banner_1790863003479.jpg'}
-                  alt="Verdant Threads Heavyweight Custom Printed Streetwear"
+                  alt="HA Clothing Heavyweight Custom Printed Streetwear"
                   className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700 ease-out"
                 />
 
                 {/* Floating Card On Hero */}
                 <div className="absolute bottom-5 inset-x-5 p-4 rounded-2xl bg-white/95 backdrop-blur-md border border-white/60 shadow-xl flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="w-11 h-11 rounded-xl bg-[#173627] text-white flex items-center justify-center font-heading font-black">
-                      V
-                    </div>
+                    <BrandLogo size="sm" showText={false} />
                     <div>
                       <span className="text-[10px] font-extrabold uppercase tracking-widest text-emerald-800 block">
-                        Featured Edition
+                        Signature Drop
                       </span>
                       <h4 className="font-heading font-bold text-xs sm:text-sm text-stone-900">
                         Botanical Blueprint Tee
@@ -203,10 +203,10 @@ export const HomePage: React.FC<HomePageProps> = ({
                 className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-5 text-white">
-                <span className="text-[10px] uppercase font-bold tracking-widest text-emerald-300">
+                <span className="text-[10px] uppercase font-bold tracking-widest text-[#D4AF37]">
                   {cat.productCount || 4} Designs Available
                 </span>
-                <h3 className="font-heading font-black text-base sm:text-lg mt-0.5 group-hover:text-emerald-300 transition-colors">
+                <h3 className="font-heading font-black text-base sm:text-lg mt-0.5 group-hover:text-[#D4AF37] transition-colors">
                   {cat.name}
                 </h3>
                 <p className="text-[11px] text-stone-300 mt-1 line-clamp-1 opacity-90">
@@ -244,15 +244,17 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
       </section>
 
-      {/* 4. CUSTOM PRINTING STUDIO BANNER */}
+      {/* 4. STYLE INSPIRATION SECTION (BABAR AZAM & VIRAT KOHLI) */}
+      <StyleInspirationSection onNavigateShop={() => onNavigateShop()} />
+
+      {/* 5. CUSTOM PRINTING STUDIO BANNER */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative rounded-3xl overflow-hidden bg-[#173627] text-white p-8 sm:p-14 shadow-2xl border border-emerald-900 flex flex-col lg:flex-row items-center justify-between gap-10">
-          {/* Subtle background glow */}
           <div className="absolute -right-20 -top-20 w-96 h-96 rounded-full bg-emerald-700/20 blur-3xl pointer-events-none" />
 
           <div className="space-y-4 max-w-xl z-10">
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-900 text-emerald-300 text-xs font-bold uppercase tracking-wider">
-              <Sparkles className="w-3.5 h-3.5" /> Print-on-Demand Studio
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-900 text-[#D4AF37] text-xs font-bold uppercase tracking-wider">
+              <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" /> Print-on-Demand Studio
             </span>
             <h2 className="text-3xl sm:text-5xl font-black font-heading leading-tight">
               Got Artwork? We Print Your Custom Vision.
@@ -270,7 +272,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               </button>
               <div className="text-xs text-emerald-200 font-semibold flex items-center gap-1.5">
                 <CheckCircle className="w-4 h-4 text-emerald-400" />
-                No minimum order quantity required
+                Cash on delivery available nationwide
               </div>
             </div>
           </div>
@@ -278,9 +280,9 @@ export const HomePage: React.FC<HomePageProps> = ({
           {/* Visual card */}
           <div className="w-full lg:w-96 rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-black/40 p-5 space-y-3 z-10 backdrop-blur-md">
             <div className="flex items-center justify-between text-xs text-stone-400 pb-3 border-b border-white/10">
-              <span>Studio Workshop Status</span>
-              <span className="text-emerald-400 font-bold flex items-center gap-1">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+              <span>HA Studio Status</span>
+              <span className="text-[#D4AF37] font-bold flex items-center gap-1">
+                <span className="w-2 h-2 rounded-full bg-[#D4AF37] animate-ping" />
                 Active Printing
               </span>
             </div>
@@ -295,14 +297,14 @@ export const HomePage: React.FC<HomePageProps> = ({
               </div>
               <div className="flex justify-between text-stone-300">
                 <span>Technique</span>
-                <span className="font-bold text-white">Swiss Eco Screen / 3D Puff</span>
+                <span className="font-bold text-white">Archival Eco Screen / 3D Puff</span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 5. NEW ARRIVALS */}
+      {/* 6. NEW ARRIVALS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
           <div>
@@ -328,7 +330,7 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
       </section>
 
-      {/* 6. CRAFTSMANSHIP & COMPARISON */}
+      {/* 7. CRAFTSMANSHIP & COMPARISON */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="p-8 sm:p-14 rounded-3xl bg-white border border-stone-200 shadow-md">
           <div className="max-w-2xl mb-10">
@@ -377,7 +379,7 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
       </section>
 
-      {/* 7. FREQUENTLY ASKED QUESTIONS */}
+      {/* 8. FREQUENTLY ASKED QUESTIONS */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center space-y-2 mb-10">
           <span className="text-xs font-black uppercase tracking-widest text-emerald-800">

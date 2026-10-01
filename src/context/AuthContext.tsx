@@ -20,29 +20,38 @@ interface AuthContextType {
   loginWithGoogle: () => Promise<void>;
   loginWithEmail: (email: string, pass: string) => Promise<void>;
   signupWithEmail: (email: string, pass: string, name: string, phone?: string) => Promise<void>;
+  adminLogin: (email: string, pass: string) => Promise<{ success: boolean; error?: string }>;
   logout: () => Promise<void>;
-  demoAdminLogin: () => void;
+  adminLogout: () => void;
   updateUserProfile: (data: Partial<CustomerUser>) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const ADMIN_EMAIL = 'huzaifawahab2005@gmail.com';
+// Environment variable admin configuration
+const ENV_ADMIN_EMAIL = (import.meta.env.VITE_ADMIN_EMAIL || 'admin@haclothing.com').trim().toLowerCase();
+const ENV_ADMIN_PASSWORD = (import.meta.env.VITE_ADMIN_PASSWORD || 'HAclothing@2026').trim();
+
+const ADMIN_SESSION_KEY = 'ha_clothing_admin_auth_token';
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [userProfile, setUserProfile] = useState<CustomerUser | null>(null);
-  const [isAdmin, setIsAdmin] = useState<boolean>(false);
+  const [isAdmin, setIsAdmin] = useState<boolean>(() => {
+    return sessionStorage.getItem(ADMIN_SESSION_KEY) === 'authenticated';
+  });
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  // Check admin rights
-  const verifyAdmin = async (user: User | null): Promise<boolean> => {
+  // Check Firestore admin document if user is signed in with Firebase
+  const verifyFirebaseAdmin = async (user: User | null): Promise<boolean> => {
     if (!user) return false;
-    if (user.email === ADMIN_EMAIL) return true;
+    if (user.email?.toLowerCase() === ENV_ADMIN_EMAIL) return true;
 
     try {
       const adminDoc = await getDoc(doc(db, 'admins', user.uid));
       if (adminDoc.exists()) return true;
+      const userDoc = await getDoc(doc(db, 'users', user.uid));
+      if (userDoc.exists() && (userDoc.data() as CustomerUser).role === 'admin') return true;
     } catch {
       // ignore
     }
@@ -53,10 +62,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setCurrentUser(user);
       if (user) {
-        const isUserAdmin = await verifyAdmin(user);
-        setIsAdmin(isUserAdmin);
+        const isUserAdmin = await verifyFirebaseAdmin(user);
+        if (isUserAdmin) {
+          setIsAdmin(true);
+          sessionStorage.setItem(ADMIN_SESSION_KEY, 'authenticated');
+        }
 
-        // Fetch user profile from firestore
         try {
           const profileDoc = await getDoc(doc(db, 'users', user.uid));
           if (profileDoc.exists()) {
@@ -73,7 +84,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             setUserProfile(newProfile);
           }
         } catch {
-          // If firestore read fails, fallback in-memory
           setUserProfile({
             uid: user.uid,
             email: user.email || '',
@@ -82,8 +92,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           });
         }
       } else {
+        // If not logged in via Firebase, check if session storage admin token is active
+        const hasSession = sessionStorage.getItem(ADMIN_SESSION_KEY) === 'authenticated';
+        setIsAdmin(hasSession);
         setUserProfile(null);
-        setIsAdmin(false);
       }
       setIsLoading(false);
     });
@@ -119,7 +131,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         email,
         displayName: name,
         phone: phone || '',
-        role: email === ADMIN_EMAIL ? 'admin' : 'customer',
+        role: email.toLowerCase() === ENV_ADMIN_EMAIL ? 'admin' : 'customer',
         createdAt: new Date().toISOString(),
       };
       await setDoc(doc(db, 'users', cred.user.uid), newProfile);
@@ -129,21 +141,48 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  // Environment-based & Firebase verified admin authentication
+  const adminLogin = async (email: string, pass: string): Promise<{ success: boolean; error?: string }> => {
+    const cleanEmail = email.trim().toLowerCase();
+    const cleanPass = pass.trim();
+
+    // 1. Check against environment variables
+    const matchesEnv = cleanEmail === ENV_ADMIN_EMAIL && cleanPass === ENV_ADMIN_PASSWORD;
+
+    if (matchesEnv) {
+      setIsAdmin(true);
+      sessionStorage.setItem(ADMIN_SESSION_KEY, 'authenticated');
+      return { success: true };
+    }
+
+    // 2. Fallback to Firebase email/password authentication
+    try {
+      const userCred = await signInWithEmailAndPassword(auth, cleanEmail, cleanPass);
+      const isFbAdmin = await verifyFirebaseAdmin(userCred.user);
+      if (isFbAdmin) {
+        setIsAdmin(true);
+        sessionStorage.setItem(ADMIN_SESSION_KEY, 'authenticated');
+        return { success: true };
+      }
+      // If not an admin in database:
+      await signOut(auth);
+      return { success: false, error: 'Invalid email or password' };
+    } catch {
+      return { success: false, error: 'Invalid email or password' };
+    }
+  };
+
+  const adminLogout = () => {
+    sessionStorage.removeItem(ADMIN_SESSION_KEY);
+    setIsAdmin(false);
+    signOut(auth).catch(() => {});
+  };
+
   const logout = async () => {
+    sessionStorage.removeItem(ADMIN_SESSION_KEY);
     await signOut(auth);
     setIsAdmin(false);
     setUserProfile(null);
-  };
-
-  // Demo admin login for immediate review/testing
-  const demoAdminLogin = () => {
-    setIsAdmin(true);
-    setUserProfile({
-      uid: 'demo-admin-uid',
-      email: ADMIN_EMAIL,
-      displayName: 'Huzaifa Wahab (Admin)',
-      role: 'admin',
-    });
   };
 
   const updateUserProfile = async (data: Partial<CustomerUser>) => {
@@ -170,8 +209,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         loginWithGoogle,
         loginWithEmail,
         signupWithEmail,
+        adminLogin,
         logout,
-        demoAdminLogin,
+        adminLogout,
         updateUserProfile,
       }}
     >

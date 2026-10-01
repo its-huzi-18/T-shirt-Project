@@ -10,6 +10,7 @@ import {
   ArrowLeft,
 } from 'lucide-react';
 import { useStore } from '../../context/StoreContext';
+import { formatPKR } from '../../lib/formatters';
 
 interface CartPageProps {
   onNavigateToCheckout: () => void;
@@ -31,7 +32,7 @@ export const CartPage: React.FC<CartPageProps> = ({
     settings,
   } = useStore();
 
-  const threshold = settings.freeShippingThreshold || 75;
+  const threshold = settings.freeShippingThreshold || 5000;
   const remainingForFreeShipping = Math.max(0, threshold - cartSubtotal);
 
   if (cart.length === 0) {
@@ -42,7 +43,7 @@ export const CartPage: React.FC<CartPageProps> = ({
         </div>
         <h2 className="text-3xl font-black font-heading text-[#173627]">Your Shopping Bag is Empty</h2>
         <p className="text-xs sm:text-sm text-stone-500 max-w-sm mx-auto">
-          Explore our artisan screen printed collections and discover heavy cotton pieces crafted to endure.
+          Explore our HA Clothing heavyweight collection and discover luxury streetwear crafted to endure.
         </p>
         <button
           onClick={onContinueShopping}
@@ -79,10 +80,10 @@ export const CartPage: React.FC<CartPageProps> = ({
             <Truck className="w-5 h-5 text-emerald-400 shrink-0" />
             <div>
               {isFreeShipping ? (
-                <span className="font-bold text-emerald-300">You qualify for FREE worldwide shipping!</span>
+                <span className="font-bold text-emerald-300">🎉 Congratulations! You have unlocked FREE Express Delivery!</span>
               ) : (
                 <span>
-                  Add <strong className="text-emerald-300">{settings.currencySymbol || '$'}{remainingForFreeShipping.toFixed(2)}</strong> more to get Free Express Shipping!
+                  Add <strong className="text-emerald-300">{formatPKR(remainingForFreeShipping, settings.currencySymbol || 'Rs.')}</strong> more to get Free Express Delivery!
                 </span>
               )}
             </div>
@@ -109,7 +110,7 @@ export const CartPage: React.FC<CartPageProps> = ({
                       </span>
                     </div>
                     <span className="text-sm font-bold text-stone-900 mt-2 block sm:hidden">
-                      {settings.currencySymbol || '$'}{(item.price * item.quantity).toFixed(2)}
+                      {formatPKR(item.price * item.quantity, settings.currencySymbol || 'Rs.')}
                     </span>
                   </div>
                 </div>
@@ -135,7 +136,7 @@ export const CartPage: React.FC<CartPageProps> = ({
                   </div>
 
                   <span className="text-base font-black text-[#173627] hidden sm:block">
-                    {settings.currencySymbol || '$'}{(item.price * item.quantity).toFixed(2)}
+                    {formatPKR(item.price * item.quantity, settings.currencySymbol || 'Rs.')}
                   </span>
 
                   <button
@@ -159,18 +160,18 @@ export const CartPage: React.FC<CartPageProps> = ({
               <div className="flex justify-between">
                 <span>Subtotal</span>
                 <span className="font-bold text-stone-900">
-                  {settings.currencySymbol || '$'}{cartSubtotal.toFixed(2)}
+                  {formatPKR(cartSubtotal, settings.currencySymbol || 'Rs.')}
                 </span>
               </div>
               <div className="flex justify-between">
                 <span>Shipping</span>
                 <span className="font-bold text-stone-900">
-                  {isFreeShipping ? 'FREE' : `${settings.currencySymbol || '$'}${shippingFee.toFixed(2)}`}
+                  {isFreeShipping ? 'FREE' : formatPKR(shippingFee, settings.currencySymbol || 'Rs.')}
                 </span>
               </div>
               <div className="flex justify-between text-lg font-black text-[#173627] pt-3 border-t border-stone-200">
                 <span>Total</span>
-                <span>{settings.currencySymbol || '$'}{cartTotal.toFixed(2)}</span>
+                <span>{formatPKR(cartTotal, settings.currencySymbol || 'Rs.')}</span>
               </div>
             </div>
 
@@ -185,11 +186,11 @@ export const CartPage: React.FC<CartPageProps> = ({
             <div className="p-4 bg-stone-50 rounded-2xl text-[11px] text-stone-500 space-y-2 border border-stone-100">
               <div className="flex items-center gap-2 text-stone-700 font-semibold">
                 <ShieldCheck className="w-4 h-4 text-emerald-800" />
-                <span>Cash on delivery available at checkout</span>
+                <span>Cash on delivery available nationwide across Pakistan</span>
               </div>
               <div className="flex items-center gap-2 text-stone-700 font-semibold">
                 <Truck className="w-4 h-4 text-emerald-800" />
-                <span>Dispatches from studio within 48 hours</span>
+                <span>Dispatches via TCS / Leopard Courier within 24-48h</span>
               </div>
             </div>
           </div>
