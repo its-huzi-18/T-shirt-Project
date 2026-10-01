@@ -6,7 +6,7 @@ export const INITIAL_SETTINGS: StoreSettings = {
   heroHeading: 'WEAR YOUR CREATIVITY',
   heroDescription:
     'Heavyweight 240+ GSM combed organic cotton meets archival Japanese screen prints and tactile 3D puff designs. Built for silhouettes that command attention.',
-  heroImage: '/src/assets/images/hero_tshirt_banner_1790863003479.jpg',
+  heroImage: '/images/hero_tshirt_banner_1790863003479.jpg',
   promoBanner: 'SPRING 2026 DROP: COMPLIMENTARY SHIPPING ON ORDERS OVER $75 • 48H ARTISAN DISPATCH',
   showPromoBanner: true,
   contactEmail: 'studio@verdantthreads.com',
@@ -26,7 +26,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     name: 'Printed T-Shirts',
     slug: 'printed-tshirts',
     description: 'High-density artistic graphic prints engineered with fade-resistant eco-inks.',
-    imageUrl: '/src/assets/images/product_forest_tee_1790863018752.jpg',
+    imageUrl: '/images/product_forest_tee_1790863018752.jpg',
     productCount: 4,
   },
   {
@@ -34,7 +34,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     name: 'Oversized T-Shirts',
     slug: 'oversized-tshirts',
     description: 'Boxy drop-shoulder streetwear fits crafted from ultra-heavy 240-280 GSM cotton.',
-    imageUrl: '/src/assets/images/product_black_tee_1790863039839.jpg',
+    imageUrl: '/images/product_black_tee_1790863039839.jpg',
     productCount: 4,
   },
   {
@@ -42,7 +42,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     name: 'Graphic T-Shirts',
     slug: 'graphic-tshirts',
     description: 'Bold retro-futuristic illustrations, typography layouts, and brutalist art.',
-    imageUrl: '/src/assets/images/product_sand_tee_1790863056583.jpg',
+    imageUrl: '/images/product_sand_tee_1790863056583.jpg',
     productCount: 3,
   },
   {
@@ -50,7 +50,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     name: 'Custom T-Shirts',
     slug: 'custom-tshirts',
     description: 'Upload your own artwork or print ideas with single or bulk screen printing.',
-    imageUrl: '/src/assets/images/hero_tshirt_banner_1790863003479.jpg',
+    imageUrl: '/images/hero_tshirt_banner_1790863003479.jpg',
     productCount: 2,
   },
 ];
@@ -68,10 +68,10 @@ export const INITIAL_PRODUCTS: Product[] = [
     sku: 'VT-BOT-01',
     category: 'Printed T-Shirts',
     images: [
-      '/src/assets/images/product_forest_tee_1790863018752.jpg',
-      '/src/assets/images/hero_tshirt_banner_1790863003479.jpg',
+      '/images/product_forest_tee_1790863018752.jpg',
+      '/images/hero_tshirt_banner_1790863003479.jpg',
     ],
-    thumbnail: '/src/assets/images/product_forest_tee_1790863018752.jpg',
+    thumbnail: '/images/product_forest_tee_1790863018752.jpg',
     sizes: ['S', 'M', 'L', 'XL', 'XXL'],
     colors: [
       { name: 'Forest Emerald', code: '#173627' },
@@ -104,10 +104,10 @@ export const INITIAL_PRODUCTS: Product[] = [
     sku: 'VT-VNT-02',
     category: 'Graphic T-Shirts',
     images: [
-      '/src/assets/images/product_black_tee_1790863039839.jpg',
-      '/src/assets/images/product_sand_tee_1790863056583.jpg',
+      '/images/product_black_tee_1790863039839.jpg',
+      '/images/product_sand_tee_1790863056583.jpg',
     ],
-    thumbnail: '/src/assets/images/product_black_tee_1790863039839.jpg',
+    thumbnail: '/images/product_black_tee_1790863039839.jpg',
     sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
     colors: [
       { name: 'Acid Washed Black', code: '#212121' },
@@ -139,10 +139,10 @@ export const INITIAL_PRODUCTS: Product[] = [
     sku: 'VT-PUF-03',
     category: 'Oversized T-Shirts',
     images: [
-      '/src/assets/images/product_sand_tee_1790863056583.jpg',
-      '/src/assets/images/product_forest_tee_1790863018752.jpg',
+      '/images/product_sand_tee_1790863056583.jpg',
+      '/images/product_forest_tee_1790863018752.jpg',
     ],
-    thumbnail: '/src/assets/images/product_sand_tee_1790863056583.jpg',
+    thumbnail: '/images/product_sand_tee_1790863056583.jpg',
     sizes: ['S', 'M', 'L', 'XL'],
     colors: [
       { name: 'Artisan Sand', code: '#E4DAC8' },
@@ -175,10 +175,10 @@ export const INITIAL_PRODUCTS: Product[] = [
     sku: 'VT-TYO-04',
     category: 'Graphic T-Shirts',
     images: [
-      '/src/assets/images/product_forest_tee_1790863018752.jpg',
-      '/src/assets/images/product_black_tee_1790863039839.jpg',
+      '/images/product_forest_tee_1790863018752.jpg',
+      '/images/product_black_tee_1790863039839.jpg',
     ],
-    thumbnail: '/src/assets/images/product_forest_tee_1790863018752.jpg',
+    thumbnail: '/images/product_forest_tee_1790863018752.jpg',
     sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'],
     colors: [
       { name: 'Forest Emerald', code: '#173627' },
@@ -211,10 +211,10 @@ export const INITIAL_PRODUCTS: Product[] = [
     sku: 'VT-CUS-05',
     category: 'Custom T-Shirts',
     images: [
-      '/src/assets/images/hero_tshirt_banner_1790863003479.jpg',
-      '/src/assets/images/product_sand_tee_1790863056583.jpg',
+      '/images/hero_tshirt_banner_1790863003479.jpg',
+      '/images/product_sand_tee_1790863056583.jpg',
     ],
-    thumbnail: '/src/assets/images/hero_tshirt_banner_1790863003479.jpg',
+    thumbnail: '/images/hero_tshirt_banner_1790863003479.jpg',
     sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'],
     colors: [
       { name: 'Raw Cream', code: '#F5EFEB' },
@@ -248,10 +248,10 @@ export const INITIAL_PRODUCTS: Product[] = [
     sku: 'VT-SUN-06',
     category: 'Printed T-Shirts',
     images: [
-      '/src/assets/images/product_sand_tee_1790863056583.jpg',
-      '/src/assets/images/product_forest_tee_1790863018752.jpg',
+      '/images/product_sand_tee_1790863056583.jpg',
+      '/images/product_forest_tee_1790863018752.jpg',
     ],
-    thumbnail: '/src/assets/images/product_sand_tee_1790863056583.jpg',
+    thumbnail: '/images/product_sand_tee_1790863056583.jpg',
     sizes: ['S', 'M', 'L', 'XL', 'XXL'],
     colors: [
       { name: 'Artisan Sand', code: '#E4DAC8' },

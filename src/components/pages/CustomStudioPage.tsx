@@ -71,9 +71,9 @@ export const CustomStudioPage: React.FC<CustomStudioPageProps> = ({ onOrderCusto
       sku: 'VT-CUSTOM-01',
       category: 'Custom T-Shirts',
       images: [
-        uploadedArt || '/src/assets/images/hero_tshirt_banner_1790863003479.jpg',
+        uploadedArt || '/images/hero_tshirt_banner_1790863003479.jpg',
       ],
-      thumbnail: uploadedArt || '/src/assets/images/hero_tshirt_banner_1790863003479.jpg',
+      thumbnail: uploadedArt || '/images/hero_tshirt_banner_1790863003479.jpg',
       sizes: ['S', 'M', 'L', 'XL', 'XXL'],
       colors: [{ name: tshirtColor.name, code: tshirtColor.code }],
       stock: 100,

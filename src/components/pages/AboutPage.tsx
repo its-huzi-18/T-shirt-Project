@@ -29,7 +29,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigateShop, onNavigate
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative rounded-3xl overflow-hidden border border-stone-200 shadow-xl aspect-16/9 sm:aspect-21/9 bg-[#0E2218]">
           <img
-            src="/src/assets/images/hero_tshirt_banner_1790863003479.jpg"
+            src="/images/hero_tshirt_banner_1790863003479.jpg"
             alt="Verdant Threads Studio Atelier"
             className="w-full h-full object-cover opacity-85"
           />

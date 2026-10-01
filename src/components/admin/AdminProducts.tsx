@@ -46,7 +46,7 @@ export const AdminProducts: React.FC<AdminProductsProps> = ({
         salePrice: null,
         sku: `VT-${Math.floor(100 + Math.random() * 900)}`,
         category: categories[0]?.name || 'Printed T-Shirts',
-        images: ['/src/assets/images/product_forest_tee_1790863018752.jpg'],
+        images: ['/images/product_forest_tee_1790863018752.jpg'],
         sizes: ['S', 'M', 'L', 'XL'],
         colors: [
           { name: 'Forest Emerald', code: '#173627' },
@@ -91,7 +91,7 @@ export const AdminProducts: React.FC<AdminProductsProps> = ({
       salePrice: null,
       sku: `VT-${Math.floor(100 + Math.random() * 900)}`,
       category: categories[0]?.name || 'Printed T-Shirts',
-      images: ['/src/assets/images/product_forest_tee_1790863018752.jpg'],
+      images: ['/images/product_forest_tee_1790863018752.jpg'],
       sizes: ['S', 'M', 'L', 'XL'],
       colors: [
         { name: 'Forest Emerald', code: '#173627' },
@@ -158,10 +158,10 @@ export const AdminProducts: React.FC<AdminProductsProps> = ({
 
   // Preset images helper
   const presetImages = [
-    '/src/assets/images/product_forest_tee_1790863018752.jpg',
-    '/src/assets/images/product_black_tee_1790863039839.jpg',
-    '/src/assets/images/product_sand_tee_1790863056583.jpg',
-    '/src/assets/images/hero_tshirt_banner_1790863003479.jpg',
+    '/images/product_forest_tee_1790863018752.jpg',
+    '/images/product_black_tee_1790863039839.jpg',
+    '/images/product_sand_tee_1790863056583.jpg',
+    '/images/hero_tshirt_banner_1790863003479.jpg',
   ];
 
   const handleSaveProduct = async (e: React.FormEvent) => {

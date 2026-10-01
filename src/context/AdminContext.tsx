@@ -262,8 +262,8 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       salePrice: productData.salePrice ? Number(productData.salePrice) : null,
       sku: productData.sku || `VT-${Math.floor(100 + Math.random() * 900)}`,
       category: productData.category || 'Printed T-Shirts',
-      images: productData.images && productData.images.length > 0 ? productData.images : ['/src/assets/images/product_forest_tee_1790863018752.jpg'],
-      thumbnail: productData.thumbnail || productData.images?.[0] || '/src/assets/images/product_forest_tee_1790863018752.jpg',
+      images: productData.images && productData.images.length > 0 ? productData.images : ['/images/product_forest_tee_1790863018752.jpg'],
+      thumbnail: productData.thumbnail || productData.images?.[0] || '/images/product_forest_tee_1790863018752.jpg',
       sizes: productData.sizes || ['S', 'M', 'L', 'XL'],
       colors: productData.colors || [{ name: 'Forest Emerald', code: '#173627' }],
       stock: Number(productData.stock) ?? 20,
@@ -334,7 +334,7 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       name: categoryData.name || 'New Category',
       slug,
       description: categoryData.description || '',
-      imageUrl: categoryData.imageUrl || '/src/assets/images/product_forest_tee_1790863018752.jpg',
+      imageUrl: categoryData.imageUrl || '/images/product_forest_tee_1790863018752.jpg',
       productCount: categoryData.productCount || 0,
     };
 

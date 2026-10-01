@@ -131,7 +131,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             >
               <div className="relative aspect-4/5 rounded-3xl overflow-hidden shadow-2xl border border-stone-200 bg-stone-100 group">
                 <img
-                  src={settings.heroImage || '/src/assets/images/hero_tshirt_banner_1790863003479.jpg'}
+                  src={settings.heroImage || '/images/hero_tshirt_banner_1790863003479.jpg'}
                   alt="Verdant Threads Heavyweight Custom Printed Streetwear"
                   className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700 ease-out"
                 />
